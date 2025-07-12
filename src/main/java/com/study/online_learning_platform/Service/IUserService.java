@@ -6,7 +6,13 @@ import com.study.online_learning_platform.Entity.UserEntity;
 import java.util.List;
 
 public interface IUserService {
-    List<UserDTO> getAllUsers();
-    String getUserById(Long id);
-    public UserEntity createUser(UserDTO userDTO);
+    public List<UserDTO> getAllUsers();
+
+    public UserDTO getUserById(Long id);
+
+    public void createUser(UserDTO user);
+
+    public void deleteUser(Long id);
+
+    public void updateUser(Long id, UserDTO user);
 }

@@ -1,19 +1,37 @@
 package com.study.online_learning_platform.DTO;
 
+import com.study.online_learning_platform.Enum.DistrictEnum;
+import com.study.online_learning_platform.Enum.RoleEnum;
+
+import java.util.Date;
+
 public class UserDTO {
     // Declare variables
-    private String fullName;
+    private Long id;
+    private String username;
     private String password;
     private String email;
-    private String role;
+    private String fullName;
+    private Enum<RoleEnum> role;
+    private Boolean status;
+    private Date createdAt;
     private String phoneNumber;
+    private Enum<DistrictEnum> district;
 
-    public String getFullname() {
-        return fullName;
+    public Long getId() {
+        return id;
     }
 
-    public void setFullname(String fullname) {
-        this.fullName = fullname;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -32,12 +50,36 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getRole() {
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Enum<RoleEnum> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Enum<RoleEnum> role) {
         this.role = role;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getPhoneNumber() {
@@ -48,7 +90,11 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
-// Getters and Setters
-    // End Getters and Setters
+    public Enum<DistrictEnum> getDistrict() {
+        return district;
+    }
 
+    public void setDistrict(Enum<DistrictEnum> district) {
+        this.district = district;
+    }
 }

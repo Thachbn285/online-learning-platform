@@ -1,6 +1,6 @@
 package com.study.online_learning_platform.Enum;
 
-public enum District {
+public enum DistrictEnum {
     QUAN_1("Quận 1"),
     QUAN_2("Quận 2"),
     QUAN_3("Quận 3"),
@@ -27,7 +27,7 @@ public enum District {
 
     private final String districtName;
 
-    District(String districtName) {
+    DistrictEnum(String districtName) {
         this.districtName = districtName;
     }
 }

@@ -1,11 +1,10 @@
 package com.study.online_learning_platform.Entity;
 
-import com.study.online_learning_platform.Enum.District;
-import com.study.online_learning_platform.Enum.Role;
+import com.study.online_learning_platform.Enum.DistrictEnum;
+import com.study.online_learning_platform.Enum.RoleEnum;
 import jakarta.persistence.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "USER")
@@ -27,7 +26,7 @@ public class UserEntity {
     private String fullName;
 
     @Column(name = "role")
-    private Enum<Role> role;
+    private Enum<RoleEnum> role;
 
     @Column(name = "status")
     private Boolean status;
@@ -39,14 +38,8 @@ public class UserEntity {
     private String phoneNumber;
 
     @Column(name = "district")
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST, CascadeType.MERGE
-            },
-            orphanRemoval = true
-    )
-    private Enum<District> district;
+    @OneToMany(mappedBy = "")
+    private Enum<DistrictEnum> district;
 
     public Long getId() {
         return id;
@@ -88,11 +81,11 @@ public class UserEntity {
         this.fullName = fullName;
     }
 
-    public Enum<Role> getRole() {
+    public Enum<RoleEnum> getRole() {
         return role;
     }
 
-    public void setRole(Enum<Role> role) {
+    public void setRole(Enum<RoleEnum> role) {
         this.role = role;
     }
 
@@ -120,11 +113,11 @@ public class UserEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public Enum<District> getDistrict() {
+    public Enum<DistrictEnum> getDistrict() {
         return district;
     }
 
-    public void setDistrict(Enum<District> district) {
+    public void setDistrict(Enum<DistrictEnum> district) {
         this.district = district;
     }
 }

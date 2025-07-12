@@ -1,13 +1,13 @@
 package com.study.online_learning_platform.Enum;
 
-public enum Role {
+public enum RoleEnum {
     ADMIN("Admin"),
     TEACHER("Teacher"),
     STUDENT("Student");
 
     private final String roleName;
 
-    Role(String roleName) {
+    RoleEnum(String roleName) {
         this.roleName = roleName;
     }
 
