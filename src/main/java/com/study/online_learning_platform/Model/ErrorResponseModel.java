@@ -1,8 +1,8 @@
-package com.study.online_learning_platform.DTO;
+package com.study.online_learning_platform.Model;
 
 import java.util.List;
 
-public class ErrorResponseDTO {
+public class ErrorResponseModel {
     private String message;
     private List<String> details;
 

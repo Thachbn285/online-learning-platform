@@ -1,18 +1,19 @@
 package com.study.online_learning_platform.Service;
 
-import com.study.online_learning_platform.DTO.UserDTO;
-import com.study.online_learning_platform.Entity.UserEntity;
+import com.study.online_learning_platform.Model.UserModel;
 
 import java.util.List;
 
-public interface IUserService {
-    public List<UserDTO> getAllUsers();
+public interface IUserService  {
+    public List<UserModel> getAllUsers();
 
-    public UserDTO getUserById(Long id);
+    public UserModel getUserById(Long id);
 
-    public void createUser(UserDTO user);
+    public void createUser(UserModel user);
 
     public void deleteUser(Long id);
 
-    public void updateUser(Long id, UserDTO user);
+    public void updateUser(Long id, UserModel user);
+
+//    public String login(String username, String password) throws Exception;
 }

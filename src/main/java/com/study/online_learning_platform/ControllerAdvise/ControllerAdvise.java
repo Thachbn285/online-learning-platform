@@ -1,6 +1,6 @@
 package com.study.online_learning_platform.ControllerAdvise;
 
-import com.study.online_learning_platform.DTO.ErrorResponseDTO;
+import com.study.online_learning_platform.Model.ErrorResponseModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +16,7 @@ public class ControllerAdvise extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ArithmeticException.class)
     public ResponseEntity<Object> handleArithmeticException(ArithmeticException ex, WebRequest request) {
-        ErrorResponseDTO errorResponse = new ErrorResponseDTO();
+        ErrorResponseModel errorResponse = new ErrorResponseModel();
         errorResponse.setMessage("Lỗi toán học: " + ex.getMessage());
 
         List<String> details = new ArrayList<>();

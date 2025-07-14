@@ -1,9 +1,9 @@
 package com.study.online_learning_platform.Service;
 
-import com.study.online_learning_platform.DTO.UserDTO;
+import com.study.online_learning_platform.Model.UserModel;
 import com.study.online_learning_platform.Entity.UserEntity;
-import com.study.online_learning_platform.Enum.RoleEnum;
 import com.study.online_learning_platform.Repository.IUserRepo;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements IUserService {
-
     @Autowired
     private IUserRepo userRepo;
 
@@ -22,40 +22,36 @@ public class UserServiceImpl implements IUserService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<UserDTO> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         List<UserEntity> userEntities = userRepo.findAll();
-        List<UserDTO> userDTOs = userEntities.stream()
-                .map(userEntity -> modelMapper.map(userEntity, UserDTO.class))
+        return userEntities.stream()
+                .map(userEntity -> modelMapper.map(userEntity, UserModel.class))
                 .toList();
-        return userDTOs;
 
     }
 
     @Override
-    public UserDTO getUserById(Long id) {
+    public UserModel getUserById(Long id) {
         Optional<UserEntity> userEntity = userRepo.findById(id);
-        if (userEntity.isPresent()) {
-            return modelMapper.map(userEntity.get(), UserDTO.class);
-        } else {
-            return null; // or throw an exception
-        }
+        // or throw an exception
+        return userEntity.map(entity -> modelMapper.map(entity, UserModel.class)).orElse(null);
 
     }
 
     @Override
-    public void createUser(UserDTO user) {
+    public void createUser(UserModel user) {
         UserEntity userEntity = modelMapper.map(user, UserEntity.class);
         userRepo.save(userEntity);
     }
 
     @Override
-    public void updateUser(Long id, UserDTO user) {
+    public void updateUser(Long id, UserModel user) {
         Optional<UserEntity> userEntity = userRepo.findById(id);
         userEntity.ifPresent(entity -> {
             entity.setFullName(user.getFullName());
             entity.setPassword(user.getPassword());
             entity.setEmail(user.getEmail());
-            entity.setRole(RoleEnum.valueOf(user.getRole()));
+            entity.setRole(user.getRole());
             entity.setPhoneNumber(user.getPhoneNumber());
             userRepo.save(entity);
         });
@@ -65,4 +61,18 @@ public class UserServiceImpl implements IUserService {
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
     }
+
+//    @Override
+//    public String login(String username, String password) throws Exception {
+//
+//        UserEntity user = userRepo.findByUsername(username);
+//
+//        if (user == null) {
+//            throw new Exception("User not found");
+//        }
+//        if (!passwordDecoder(user.getPassword()).equals(password)) {
+//            throw new Exception("Invalid password");
+//        }
+//        return "Login successful for user: " + user.getFullName();
+//    }
 }
