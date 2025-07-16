@@ -24,7 +24,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="b5bc7301-8be9-49e9-9619-7c245053ccab">
-      <console name="Connection" type="STANDARD" schema="mysql" session="Main"><![CDATA[create database onlineLearningPlatform;
+      <console name="Connection" type="STANDARD" schema="mysql" session="Main">create database onlineLearningPlatform;
 use onlineLearningPlatform;
 create table USER(
     long user_id not null unique,
@@ -35,7 +35,7 @@ create table USER(
     varchar(255) role,
     foreign key(role) 
     primary key(user_id)
-);]]></console>
+);</console>
       <console name="Connection mysql" type="STANDARD" schema="mysql" session="Main" />
     </connection>
     <connection id="929bc202-80de-419b-8799-440ded670987">
@@ -46,10 +46,7 @@ create table USER(
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="b5bc7301-8be9-49e9-9619-7c245053ccab" object-ref="consoles/Connection mysql" />
-      <object connection-id="b5bc7301-8be9-49e9-9619-7c245053ccab" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="b5bc7301-8be9-49e9-9619-7c245053ccab" />
