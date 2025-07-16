@@ -1,0 +1,21 @@
+{
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.lineHeight": 0,
+  "terminal.integrated.stickyScroll.maxLineCount": 10,
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.fontWeight": "normal",
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "editor.formatOnPaste": true,
+  "editor.fontLigatures": false,
+  // "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  "disable-hardware-acceleration": true,
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  }
+}
