@@ -24,36 +24,38 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="b5bc7301-8be9-49e9-9619-7c245053ccab">
-      <console name="Connection" type="STANDARD" schema="mysql" session="Main">create database onlineLearningPlatform;
-use onlineLearningPlatform;
-create table USER(
-    long user_id not null unique,
-    nvarchar(255) username,
-    varchar(255) password,
-    varchar(255) email,
-    nvarchar(255) address,
-    varchar(255) role,
-    foreign key(role) 
-    primary key(user_id)
-);</console>
-      <console name="Connection mysql" type="STANDARD" schema="mysql" session="Main" />
-    </connection>
-    <connection id="929bc202-80de-419b-8799-440ded670987">
-      <console name="Connection 1" type="STANDARD" schema="mydatabase" session="Main" />
+      <console name="Connection mysql" type="STANDARD" schema="onlinelearningplatform" session="Main"><![CDATA[select  * from course]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="b5bc7301-8be9-49e9-9619-7c245053ccab" object-ref="consoles/Connection mysql" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="b5bc7301-8be9-49e9-9619-7c245053ccab" />
-    <connection id="929bc202-80de-419b-8799-440ded670987" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="b5bc7301-8be9-49e9-9619-7c245053ccab" dataset="onlinelearningplatform.cart" active-filter-id="654caa4c-d505-42cd-92ee-be6ffd0e18fb">
+      <filter id="654caa4c-d505-42cd-92ee-be6ffd0e18fb" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="b5bc7301-8be9-49e9-9619-7c245053ccab" dataset="onlinelearningplatform.user" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <execution-variables-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -67,7 +69,7 @@ create table USER(
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="8.4" />
+          <database-version value="9.3" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
@@ -85,112 +87,7 @@ create table USER(
           <token-type value="" />
           <token-config-file value="" />
           <token-profile value="" />
-          <session-user value="root@172.18.0.1" />
-        </database>
-        <properties>
-          <auto-commit value="false" />
-        </properties>
-        <ssh-settings>
-          <active value="false" />
-          <proxy-host value="" />
-          <proxy-port value="22" />
-          <proxy-user value="" />
-          <auth-type value="PASSWORD" />
-          <key-file value="" />
-        </ssh-settings>
-        <ssl-settings>
-          <active value="false" />
-          <certificate-authority-file value="" />
-          <client-certificate-file value="" />
-          <client-key-file value="" />
-        </ssl-settings>
-        <details>
-          <charset value="UTF-8" />
-          <session-management value="true" />
-          <ddl-file-binding value="true" />
-          <database-logging value="true" />
-          <connect-automatically value="true" />
-          <restore-workspace value="true" />
-          <restore-workspace-deep value="false" />
-          <environment-type value="default" />
-          <connectivity-timeout value="30" />
-          <idle-time-to-disconnect value="30" />
-          <idle-time-to-disconnect-pool value="5" />
-          <credential-expiry-time value="10" />
-          <max-connection-pool-size value="7" />
-          <alternative-statement-delimiter value="" />
-        </details>
-        <debugger>
-          <compile-dependencies value="true" />
-          <tcp-driver-tunneling value="false" />
-          <tcp-host-address value="" />
-          <tcp-port-from value="4000" />
-          <tcp-port-to value="4999" />
-          <debugger-type value="ASK" />
-        </debugger>
-        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false" hide-audit-columns="false">
-          <object-filters />
-          <object-type-filter use-master-settings="true">
-            <object-type name="SCHEMA" enabled="true" />
-            <object-type name="USER" enabled="true" />
-            <object-type name="ROLE" enabled="true" />
-            <object-type name="PRIVILEGE" enabled="true" />
-            <object-type name="CHARSET" enabled="true" />
-            <object-type name="TABLE" enabled="true" />
-            <object-type name="VIEW" enabled="true" />
-            <object-type name="JSON_VIEW" enabled="true" />
-            <object-type name="MATERIALIZED_VIEW" enabled="true" />
-            <object-type name="NESTED_TABLE" enabled="true" />
-            <object-type name="COLUMN" enabled="true" />
-            <object-type name="INDEX" enabled="true" />
-            <object-type name="CONSTRAINT" enabled="true" />
-            <object-type name="DATASET_TRIGGER" enabled="true" />
-            <object-type name="DATABASE_TRIGGER" enabled="true" />
-            <object-type name="SYNONYM" enabled="true" />
-            <object-type name="SEQUENCE" enabled="true" />
-            <object-type name="PROCEDURE" enabled="true" />
-            <object-type name="FUNCTION" enabled="true" />
-            <object-type name="PACKAGE" enabled="true" />
-            <object-type name="TYPE" enabled="true" />
-            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
-            <object-type name="ARGUMENT" enabled="true" />
-            <object-type name="JAVA_CLASS" enabled="true" />
-            <object-type name="JAVA_FIELD" enabled="true" />
-            <object-type name="JAVA_METHOD" enabled="true" />
-            <object-type name="JAVA_RESOURCE" enabled="true" />
-            <object-type name="DIMENSION" enabled="true" />
-            <object-type name="CLUSTER" enabled="true" />
-            <object-type name="DBLINK" enabled="true" />
-            <object-type name="CREDENTIAL" enabled="true" />
-            <object-type name="AI_PROFILE" enabled="true" />
-          </object-type-filter>
-        </object-filters>
-      </connection>
-      <connection source-id="" id="929bc202-80de-419b-8799-440ded670987" active="true" signed="true">
-        <database>
-          <name value="Connection postgresql" />
-          <description value="" />
-          <database-type value="POSTGRES" />
-          <config-type value="CUSTOM" />
-          <database-version value="9999.0" />
-          <driver-source value="BUNDLED" />
-          <driver-library value="" />
-          <driver value="" />
-          <url-type value="DATABASE" />
-          <host value="" />
-          <port value="" />
-          <database value="mydatabase" />
-          <tns-folder value="" />
-          <tns-profile value="" />
-          <server-type value="" />
-          <protocol value="" />
-          <url-parameters />
-          <type value="USER_PASSWORD" />
-          <user value="postgres" />
-          <token-type value="" />
-          <token-config-file value="" />
-          <token-profile value="" />
-          <session-user value="" />
+          <session-user value="root@localhost" />
         </database>
         <properties>
           <auto-commit value="false" />

@@ -1,11 +1,14 @@
 package com.study.online_learning_platform.api.user.service;
 
-import com.study.online_learning_platform.api.user.entity.UserEntity;
+import com.study.online_learning_platform.api.user.dto.UserDTO;
 
 import java.util.List;
 
 public interface UserService {
 
-    public List<UserEntity> findAll();
-
+    List<UserDTO> findAll();
+    UserDTO findById(Integer id);
+    String save(UserDTO userDTO);
+    String update(UserDTO userDTO);
+    void deleteById(Integer id);
 }

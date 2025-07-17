@@ -1,13 +1,9 @@
 package com.study.online_learning_platform.api.user;
 
 import com.study.online_learning_platform.api.user.dto.UserDTO;
-import com.study.online_learning_platform.api.user.entity.UserEntity;
 import com.study.online_learning_platform.api.user.service.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,10 +15,22 @@ public class UserController {
 
     @GetMapping("/all")
     public List<UserDTO> userDTOS() {
-        List<UserEntity> userEntities = userService.findAll();
-        ModelMapper modelMapper = new ModelMapper();
-        return userEntities.stream()
-                .map(userEntity -> modelMapper.map(userEntity, UserDTO.class))
-                .toList();
+        return userService.findAll();
+    }
+
+    @GetMapping("/")
+    public UserDTO userDTO(@RequestParam Integer id) {
+        return userService.findById(id);
+    }
+
+    @PostMapping("/update")
+    public String saveUser(@RequestBody UserDTO userDTO) {
+        return userService.update(userDTO);
+    }
+
+    @DeleteMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable Integer id) {
+        userService.deleteById(id);
+        return "User deleted successfully with ID: " + id;
     }
 }

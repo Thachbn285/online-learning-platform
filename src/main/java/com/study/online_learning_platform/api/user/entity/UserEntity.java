@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,32 +18,38 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotBlank
-    @JsonProperty("userId")
-    private Integer userId;
+    @JsonProperty("id")
+    private Integer id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
+    @Column(name = "first_name")
+    private String firstname;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "last_name")
+    private String lastname;
+
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email")
     private String email;
-
-    @Column(name = "fullname", nullable = false)
-    private String fullname;
 
     @Column(name = "role", nullable = false)
     private String role;
 
-    @Column(name = "is_active")
-    private String isActive;
+//    @Column(name = "is_active")
+//    private String isActive;
 
-    @Column(name = "phone_number")
-    private String phone_number;
+    @Column(name = "phone")
+    private String phone;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "avatar")
+    private String avatar;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
 
 }
