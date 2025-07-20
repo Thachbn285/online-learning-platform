@@ -1,6 +1,6 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.configuration.updateBuildConfiguration": "automatic",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "terminal.integrated.lineHeight": 0,

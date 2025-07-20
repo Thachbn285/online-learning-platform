@@ -1,15 +1,11 @@
 package com.study.online_learning_platform.api.user.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -17,8 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserDTO {
     private Integer id;
-    private String firstname;
-    private String lastname;
+    private String first_name;
+    private String last_name;
     private String password;
     private String email;
     private String role;

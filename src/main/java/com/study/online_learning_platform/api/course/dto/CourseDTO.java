@@ -1,13 +1,13 @@
 package com.study.online_learning_platform.api.course.dto;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Date;
 
 @Getter
 @Setter

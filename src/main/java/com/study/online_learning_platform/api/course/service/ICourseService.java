@@ -1,19 +1,20 @@
 package com.study.online_learning_platform.api.course.service;
 
 import com.study.online_learning_platform.api.course.dto.CourseDTO;
-import com.study.online_learning_platform.api.course.entity.CourseEntity;
-import com.study.online_learning_platform.api.user.dto.UserDTO;
+import com.study.online_learning_platform.ultils.ResponseDTO;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 
 public interface ICourseService {
     List<CourseDTO> findAll();
 
     CourseDTO findById(Integer id);
 
-    String save(CourseDTO courseDTO);
+    ResponseEntity<ResponseDTO> create(CourseDTO courseDTO);
 
-    String update(CourseDTO courseDTO);
+    ResponseEntity<ResponseDTO> updateById(Integer id, CourseDTO courseDTO);
 
-    void deleteById(Integer id);
+    ResponseEntity<ResponseDTO> deleteById(Integer id);
 }

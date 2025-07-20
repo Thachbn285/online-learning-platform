@@ -1,73 +1,83 @@
 package com.study.online_learning_platform.api.user.service.impl;
 
-import com.study.online_learning_platform.api.user.dto.UserDTO;
-import com.study.online_learning_platform.api.user.entity.UserEntity;
-import com.study.online_learning_platform.api.user.repository.IUserRepository;
-import com.study.online_learning_platform.api.user.service.UserService;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.study.online_learning_platform.api.user.dto.UserDTO;
+import com.study.online_learning_platform.api.user.entity.UserEntity;
+import com.study.online_learning_platform.api.user.repository.IUserRepository;
+import com.study.online_learning_platform.api.user.service.IUserService;
+import com.study.online_learning_platform.ultils.ResponseDTO;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserServiceImpl implements UserService {
-
+@RequiredArgsConstructor
+public class UserServiceImpl implements IUserService {
     @Autowired
-    IUserRepository userRepository;
+    private IUserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<UserDTO> findAll() {
-        ModelMapper mapper = new ModelMapper();
-
-        List<UserDTO> userDTOs = new ArrayList<>();
         List<UserEntity> userEntities = userRepository.findAll();
-
-        for (UserEntity userEntity : userEntities) {
-            UserDTO userDTO = mapper.map(userEntity, UserDTO.class);
-            userDTOs.add(userDTO);
-        }
-        return userDTOs;
+        return userEntities.stream()
+                .map(userEntity -> modelMapper.map(userEntity, UserDTO.class))
+                .toList();
     }
 
     @Override
     public UserDTO findById(Integer id) {
-        ModelMapper mapper = new ModelMapper();
-        UserEntity userEntity = userRepository.findById(id).orElse(null);
-        if (userEntity != null) {
-            return mapper.map(userEntity, UserDTO.class);
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+        return modelMapper.map(userEntity, UserDTO.class);
+    }
+
+    @Override
+    public ResponseDTO create(UserDTO userDTO) {
+        UserEntity userEntity = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + userDTO.getId()));
+        ResponseDTO responseDTO = new ResponseDTO();
+        if (userEntity.getId() == null) {
+            userEntity = modelMapper.map(userDTO, UserEntity.class);
+            userRepository.save(userEntity);
+            return responseDTO;
         }
-        return null;
+        return responseDTO;
     }
 
     @Override
-    public String save(UserDTO userDTO) {
-        ModelMapper mapper = new ModelMapper();
-        UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
-        userRepository.save(userEntity);
-        return "User saved successfully with ID: " + userDTO.getId();
+    public ResponseDTO updateById(Integer id, UserDTO userDTO) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+        ResponseDTO responseDTO = new ResponseDTO();
+        if (userEntity.getId() == null) {
+            return responseDTO;
+        }
+        UserEntity newUserEntity = modelMapper.map(userDTO, UserEntity.class);
+        userRepository.save(newUserEntity);
+        return responseDTO;
     }
 
     @Override
-    public String update(UserDTO userDTO) {
-        ModelMapper mapper = new ModelMapper();
-        Integer id = userDTO.getId();
+    public ResponseDTO deleteById(Integer id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
-        if (userEntity.isEmpty()) {
-            throw new RuntimeException("User not found with id: " + id);
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        if (userEntity.isPresent()) {
+            userRepository.deleteById(id);
+            return responseDTO;
+        } else {
+            return responseDTO;
         }
-        UserEntity updatedUserEntity = mapper.map(userDTO, UserEntity.class);
-        userRepository.save(updatedUserEntity);
-        return "User updated successfully with ID: " + userDTO.getId();
     }
 
-    @Override
-    public void deleteById(Integer id) {
-
-    }
 }
