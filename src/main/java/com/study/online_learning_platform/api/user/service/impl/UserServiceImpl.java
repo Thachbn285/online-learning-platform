@@ -43,10 +43,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseDTO create(UserDTO userDTO) {
-        UserEntity userEntity = userRepository.findById(userDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Course not found with id: " + userDTO.getId()));
+        UserEntity userEntity = userRepository.findById(userDTO.getUser_id())
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + userDTO.getUser_id()));
         ResponseDTO responseDTO = new ResponseDTO();
-        if (userEntity.getId() == null) {
+        if (userEntity.getUser_id() == null) {
             userEntity = modelMapper.map(userDTO, UserEntity.class);
             userRepository.save(userEntity);
             return responseDTO;
@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
         ResponseDTO responseDTO = new ResponseDTO();
-        if (userEntity.getId() == null) {
+        if (userEntity.getUser_id() == null) {
             return responseDTO;
         }
         UserEntity newUserEntity = modelMapper.map(userDTO, UserEntity.class);

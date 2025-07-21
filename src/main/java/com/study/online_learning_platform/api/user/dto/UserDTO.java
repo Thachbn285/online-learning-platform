@@ -6,20 +6,29 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class UserDTO {
-    private Integer id;
-    private String first_name;
-    private String last_name;
-    private String password;
-    private String email;
-    private String role;
-    private String phone;
-    private String avatar;
-    private Date createdAt;
-    private Date updatedAt;
+    Integer user_id;
+    String username;
+    String email;
+    String password;
+    String firstName;
+    String lastName;
+    String phone;
+    Date dateOfBirth;
+    String avatarUrl;
+    String bio;
+    String role;
+    String status;
+    Integer emailVerified;
+    Date createdAt;
+    Date updatedAt;
+    Date lastLogin;
+
 }

@@ -23,7 +23,7 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/all")
-    public List<UserDTO> userDTOS() {
+    public List<UserDTO> userDTOs() {
         return userService.findAll();
     }
 
