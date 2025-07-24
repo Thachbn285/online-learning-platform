@@ -1,16 +1,12 @@
 package com.study.online_learning_platform.api.questions.entity;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.study.online_learning_platform.api.questionOptions.entity.QuestionOptionsEntity;
 import com.study.online_learning_platform.api.quizzes.entity.QuizzesEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,37 +19,30 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @Table(name = "questions")
+@Entity
 public class QuestionEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer questionId;
-
-    @Column(name = "quiz_id")
-    Integer quizId;
-
-    @Column(name = "questionText")
-    String questionText;
-
-    @Column(name = "questionType")
-    String questionType;
-
+    Integer question_id;
+    @Column(name = "question_text")
+    String question_text;
+    @Column(name = "question_type")
+    String question_type;
     @Column(name = "points")
     Double points;
-
     @Column(name = "explanation")
     String explanation;
-
-    @Column(name = "sortOrder")
-    Integer sortOrder;
-
-    @Column(name = "isActive")
-    Boolean isActive;
-
-    @Column(name = "createAt")
-    Date createAt;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private QuizzesEntity quizzes;
+    @Column(name = "sort_order")
+    Integer sort_order;
+    @Column(name = "is_active")
+    Boolean is_active;
+    @Column(name = "created_at")
+    Date created_at;
+    
+    @OneToMany(mappedBy = "questionEntity")
+    List<QuestionOptionsEntity> questionOptionsEntities;
+    @ManyToOne
+    @JoinColumn(name = "quiz_id")
+    QuizzesEntity quizzesEntity;
 
 }

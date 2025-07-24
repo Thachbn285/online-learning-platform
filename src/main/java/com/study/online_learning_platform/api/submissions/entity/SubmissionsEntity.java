@@ -1,23 +1,13 @@
 package com.study.online_learning_platform.api.submissions.entity;
 
-import java.sql.Date;
-
 import com.study.online_learning_platform.api.assignments.entity.AssignmentsEntity;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @AllArgsConstructor
@@ -29,35 +19,28 @@ import lombok.experimental.FieldDefaults;
 public class SubmissionsEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer submissionId;
-
+    Integer submission_id;
+    @Column(name = "submission_text")
+    String submission_text;
+    @Column(name = "file_url")
+    String file_url;
     @Column(name = "url_submission")
-    String urlSubmission;
-
+    String url_submission;
     @Column(name = "submitted_at")
-    Date submittedAt;
-
+    Timestamp submitted_at;
     @Column(name = "status")
     String status;
-
     @Column(name = "grade")
     Double grade;
-
     @Column(name = "feedback")
     String feedback;
-
     @Column(name = "graded_at")
-    Date gradedAt;
+    Date graded_at;
 
-    @ManyToOne
-    @JoinColumn(name = "assignment_id", nullable = false)
-    private AssignmentsEntity assignment;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
-    @ManyToOne
-    @JoinColumn(name = "graded_by")
-    private UserEntity gradedBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assignment_id", insertable = false, updatable = false)
+    private AssignmentsEntity assignmentsEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private UserEntity userEntity;
 }

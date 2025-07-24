@@ -29,37 +29,28 @@ public class PaymentsEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     Integer payment_id;
-
     @Column(name = "amount")
     Double amount;
-
     @Column(name = "currency")
     String currency;
-
     @Column(name = "payment_method")
     String payment_method;
-
     @Column(name = "transaction_id")
     String transaction_id;
-
     @Column(name = "status")
     String status;
-
     @Column(name = "payment_gateway_response")
     String payment_gateway_response;
-
     @Column(name = "created_at")
     Date created_at;
-
     @Column(name = "completed_at")
     Date completed_at;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
-
+    private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private CourseEntity course;
+    private CourseEntity courseEntity;
 
 }

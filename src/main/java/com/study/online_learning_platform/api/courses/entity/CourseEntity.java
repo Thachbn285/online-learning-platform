@@ -1,35 +1,20 @@
 package com.study.online_learning_platform.api.courses.entity;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.study.online_learning_platform.api.categories.entity.CategoryEntity;
+import com.study.online_learning_platform.api.categories.entity.CategoriesEntity;
 import com.study.online_learning_platform.api.certificates.entity.CertificateEntity;
 import com.study.online_learning_platform.api.courseReviews.entity.CourseReviewsEntity;
 import com.study.online_learning_platform.api.discussions.entity.DiscussionsEntity;
+import com.study.online_learning_platform.api.enrollments.entity.EnrollmentEntity;
 import com.study.online_learning_platform.api.payments.entity.PaymentsEntity;
+import com.study.online_learning_platform.api.sections.entity.SectionsEntity;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -41,91 +26,70 @@ import lombok.experimental.FieldDefaults;
 public class CourseEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer courseId;
-
+    Integer course_id;
     @Column(name = "title")
     String title;
-
     @Column(name = "slug")
     String slug;
-
     @Column(name = "short_description")
     String short_description;
-
     @Column(name = "full_description")
     String full_description;
-
     @Column(name = "thumbnail_url")
     String thumbnail_url;
-
     @Column(name = "trailer_url")
     String trailer_url;
-
     @Column(name = "level")
     String level;
-
     @Column(name = "language")
     String language;
-
     @Column(name = "price")
-    Double price;
-
+    Float price;
     @Column(name = "discount_price")
-    Double discountPrice;
-
+    Float  discount_price;
     @Column(name = "duration_hours")
-    Integer durationHours;
-
+    Integer duration_hours;
     @Column(name = "max_students")
-    Integer maxStudents;
-
+    Integer max_students;
     @Column(name = "prerequisites")
     String prerequisites;
-
     @Column(name = "what_you_learn")
     String whatYouLearn;
-
     @Column(name = "status")
     String status;
-
     @Column(name = "featured")
     Boolean featured;
-
     @Column(name = "rating_avg")
-    Integer ratingAvg;
-
+    Double rating_avg;
     @Column(name = "rating_count")
-    Integer ratingCount;
-
+    Integer rating_count;
     @Column(name = "student_count")
-    Integer studentsCount;
-
+    Integer student_count;
     @Column(name = "created_at")
-    Date createdAt;
-
+    Date created_at;
     @Column(name = "updated_at")
-    Date updatedAt;
-
+    Date updated_at;
     @Column(name = "published_at")
-    Date publishedAt;
+    Date published_at;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "instructor_id")
-    private UserEntity instructor;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    UserEntity userEntity;
+    @ManyToOne
     @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    CategoriesEntity categoriesEntity;
+    @OneToMany(mappedBy = "courseEntity")
+    List<SectionsEntity> sectionsEntities;
+    @OneToMany(mappedBy = "courseEntity")
+    List<EnrollmentEntity> enrollmentEntities;
+    @OneToMany(mappedBy = "courseEntity")
+    List<DiscussionsEntity> discussionsEntities;
+    @OneToMany(mappedBy = "courseEntity")
+    List<CourseReviewsEntity> courseReviewsEntities;
+    @OneToMany(mappedBy = "courseEntity")
+    List<CertificateEntity> certificateEntities;
+    @OneToMany(mappedBy = "courseEntity")
+    List<PaymentsEntity> paymentsEntities;
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<DiscussionsEntity> discussions;
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<CourseReviewsEntity> reviews;
-
-    @OneToMany(mappedBy = "course")
-    private List<CertificateEntity> certificates;
-
-    @OneToMany(mappedBy = "course")
-    private List<PaymentsEntity> payments;
 }

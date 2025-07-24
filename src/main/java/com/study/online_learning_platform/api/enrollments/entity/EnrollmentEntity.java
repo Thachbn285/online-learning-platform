@@ -1,17 +1,13 @@
 package com.study.online_learning_platform.api.enrollments.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 import com.study.online_learning_platform.api.courses.entity.CourseEntity;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,16 +24,16 @@ import lombok.experimental.FieldDefaults;
 public class EnrollmentEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer enrollmentId;
+    Integer enrollment_id;
 
     @Column(name = "enrollment_date")
-    Date enrollmentDate;
+    Timestamp enrollment_date;
 
     @Column(name = "completion_date")
-    Date completionDate;
+    Timestamp completion_date;
 
     @Column(name = "progress_percentage")
-    Double progressPercentage;
+    Double progress_percentage;
 
     @Column(name = "status")
     String status;
@@ -55,13 +51,14 @@ public class EnrollmentEntity {
     String certificate_url;
 
     @Column(name = "last_accessed")
-    Date last_accessed;
+    Timestamp last_accessed;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
+    @JoinColumn(name = "user_id")
+    UserEntity userEntity;
+    
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private CourseEntity course;
+    @JoinColumn(name = "course_id")
+    CourseEntity courseEntity;
+
 }

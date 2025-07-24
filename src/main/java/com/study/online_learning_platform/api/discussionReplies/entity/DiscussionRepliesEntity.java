@@ -52,17 +52,18 @@ public class DiscussionRepliesEntity {
 
     @ManyToOne
     @JoinColumn(name = "discussion_id", nullable = false)
-    private DiscussionsEntity discussion;
+    DiscussionsEntity discussion;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "parent_reply_id")
-    private DiscussionRepliesEntity parentReply;
+    DiscussionRepliesEntity parentReply;
 
-    @OneToMany(mappedBy = "parentReply", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DiscussionRepliesEntity> childReplies;
+    @OneToMany(mappedBy = "parentReply")
+    List<DiscussionRepliesEntity> childReplies;
+    
 
 }

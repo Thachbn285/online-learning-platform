@@ -10,10 +10,10 @@ public interface IUserService {
 
     UserDTO findById(Integer id);
 
-    ResponseDTO create(UserDTO userDTO);
+    void create(UserDTO userDTO);
 
-    ResponseDTO updateById(Integer id, UserDTO userDTO);
+    void updateById(Integer id, UserDTO userDTO);
 
-    ResponseDTO deleteById(Integer id);
+    void deleteById(Integer id);
 }
  

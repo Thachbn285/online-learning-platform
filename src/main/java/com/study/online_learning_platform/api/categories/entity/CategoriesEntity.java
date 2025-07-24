@@ -13,8 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Table(name = "categories")
-public class CategoryEntity {
+public class CategoriesEntity {
+
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     Integer category_id;
@@ -52,12 +53,8 @@ public class CategoryEntity {
     Boolean isActive;
 
     @Column(name = "created_at")
-    Date createdAt;
+    Timestamp createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private CategoryEntity parentCategory;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    List<CourseEntity> courses;
+    @OneToMany(mappedBy = "categoriesEntity")
+    List<CourseEntity > courseEntities;
 }

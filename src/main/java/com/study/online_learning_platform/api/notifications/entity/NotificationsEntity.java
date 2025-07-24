@@ -28,30 +28,22 @@ public class NotificationsEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     Integer notification_id;
-
     @Column(name = "title")
     String title;
-
     @Column(name = "message")
     String message;
-
     @Column(name = "notification_type")
     String notification_type;
-
     @Column(name = "related_id")
     Integer related_id;
-
     @Column(name = "is_read")
     Boolean is_read;
-
     @Column(name = "created_at")
     Date created_at;
-
     @Column(name = "read_at")
     Date read_at;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity userEntity;
 
 }

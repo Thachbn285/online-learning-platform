@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.study.online_learning_platform.OnlineLearningPlatformApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.303 s -- in com.study.online_learning_platform.OnlineLearningPlatformApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.079 s -- in com.study.online_learning_platform.OnlineLearningPlatformApplicationTests

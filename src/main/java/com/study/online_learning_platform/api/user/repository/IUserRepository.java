@@ -4,5 +4,4 @@ import com.study.online_learning_platform.api.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Integer> {
-    UserEntity findByFirstName(String Firstname);
 }

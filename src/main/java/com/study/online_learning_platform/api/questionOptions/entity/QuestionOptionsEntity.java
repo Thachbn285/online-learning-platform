@@ -1,21 +1,14 @@
 package com.study.online_learning_platform.api.questionOptions.entity;
 
+import com.study.online_learning_platform.api.questions.entity.QuestionEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-import java.util.Date;
-
-import com.study.online_learning_platform.api.questions.entity.QuestionEntity;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -23,28 +16,21 @@ import com.study.online_learning_platform.api.questions.entity.QuestionEntity;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @Table(name = "question_options")
+@Entity
 public class QuestionOptionsEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer optionId;
-
-    @Column(name = "question_id")
-    Integer questionId;
-
+    Integer option_id;
     @Column(name = "option_text")
-    String optionText;
-
+    String option_text;
     @Column(name = "is_correct")
-    Boolean isCorrect;
-
+    Boolean is_correct;
     @Column(name = "sort_order")
-    Integer sortOrder;
-
+    Integer sort_order;
     @Column(name = "created_at")
-    Date createdAt;
+    Timestamp created_at;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "question_id")
-    private QuestionEntity question;
-
+    QuestionEntity questionEntity;
 }

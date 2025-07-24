@@ -1,25 +1,14 @@
 package com.study.online_learning_platform.api.assignments.entity;
 
-import java.sql.Date;
-import java.util.List;
-
 import com.study.online_learning_platform.api.lesson.entity.LessonEntity;
 import com.study.online_learning_platform.api.submissions.entity.SubmissionsEntity;
-
-import jakarta.annotation.Generated;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "assignments")
@@ -29,42 +18,32 @@ import lombok.experimental.FieldDefaults;
 public class AssignmentsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer assignmentId;
-
+    Integer assignment_id;
     @Column(name = "title")
     String title;
-
     @Column(name = "description")
     String description;
-
     @Column(name = "instructions")
     String instructions;
-
     @Column(name = "max_points")
     Double maxPoints;
-
     @Column(name = "due_date")
-    Date dueDate;
-
+    Timestamp due_date;
     @Column(name = "submission_type")
-    String submissionType;
-
+    String submission_type;
     @Column(name = "max_file_size")
-    Integer maxFileSize;
-
+    Integer max_file_size;
     @Column(name = "allowed_extensions")
-    String allowedExtensions;
-
+    String allowed_extensions;
     @Column(name = "is_active")
-    Integer isActive;
-
+    Integer is_active;
     @Column(name = "created_at")
-    Date createdAt;
+    Timestamp created_at;
 
-    @OneToMany(mappedBy = "lesson_id")
-    List<LessonEntity> lessons;
-
-    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SubmissionsEntity> submissions;
-
+    @ManyToOne
+    @JoinColumn(name = "submission_id")
+    SubmissionsEntity submissionsEntity;
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    LessonEntity lessonEntity;
 }

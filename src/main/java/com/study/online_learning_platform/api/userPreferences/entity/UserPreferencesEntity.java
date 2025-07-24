@@ -1,17 +1,11 @@
 package com.study.online_learning_platform.api.userPreferences.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,39 +22,29 @@ public class UserPreferencesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer preference_id;
-
     @Column(name = "language")
     String language;
-
     @Column(name = "timezone")
     String timeZone;
-
     @Column(name = "email_notifications")
-    Boolean emailNotifications;
-
+    Boolean email_notifications;
     @Column(name = "push_notifications")
-    Boolean pushNotifications;
-
+    Boolean push_notifications;
     @Column(name = "marketing_emails")
-    Boolean marketingEmails;
-
+    Boolean marketing_emails;
     @Column(name = "theme")
     String theme;
-
     @Column(name = "playback_speed")
-    Double playbackSpeed;
-
+    Double playback_speed;
     @Column(name = "auto_play_next")
-    Boolean autoPlayNext;
-
+    Boolean auto_play_next;
     @Column(name = "created_at")
-    Date createdAt;
-
+    Timestamp created_at;
     @Column(name = "updated_at")
-    Date updatedAt;
-
-    @OneToOne
+    Timestamp updated_at;
+    
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity userEntity;
 
 }

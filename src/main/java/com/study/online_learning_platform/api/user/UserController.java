@@ -1,20 +1,12 @@
 package com.study.online_learning_platform.api.user;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.study.online_learning_platform.api.user.dto.UserDTO;
 import com.study.online_learning_platform.api.user.service.IUserService;
 import com.study.online_learning_platform.ultils.ResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -27,24 +19,24 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public UserDTO userDTO(@RequestParam Integer id) {
         return userService.findById(id);
     }
 
-    @PutMapping("/update/")
-    public ResponseDTO post(@RequestParam Integer id, @RequestBody UserDTO userDTO) {
-        return userService.updateById(id, userDTO);
+    @PutMapping("/update")
+    public UserDTO post(@RequestParam Integer id, @RequestBody UserDTO userDTO) {
+        userService.updateById(id, userDTO);
+        return userService.findById(id);
     }
 
     @PostMapping("/create")
-    public ResponseDTO create(@RequestBody UserDTO userDTO) {
-        return userService.create(userDTO);
+    public void create(@RequestBody UserDTO userDTO) {
+        userService.create(userDTO);
     }
 
-    @DeleteMapping("/delete/")
-    public ResponseDTO deleteUser(@RequestParam Integer id) {
-        return userService.deleteById(id);
+    @DeleteMapping("/delete")
+    public void deleteUser(@RequestParam Integer id) {
+        userService.deleteById(id);
     }
-
 }

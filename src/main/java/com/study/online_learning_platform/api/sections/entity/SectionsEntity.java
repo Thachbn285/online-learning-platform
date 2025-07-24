@@ -1,16 +1,12 @@
 package com.study.online_learning_platform.api.sections.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.study.online_learning_platform.api.courses.entity.CourseEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.study.online_learning_platform.api.lesson.entity.LessonEntity;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +24,7 @@ import lombok.experimental.FieldDefaults;
 public class SectionsEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer sectionId;
+    Integer section_id;
 
     @Column(name = "title")
     String title;
@@ -46,6 +42,10 @@ public class SectionsEntity {
     Date createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private CourseEntity course;
+    @JoinColumn(name = "course_id")
+    CourseEntity courseEntity;
+    
+    @OneToMany(mappedBy = "sectionsEntity")
+    List<LessonEntity> lessonEntities;
+    
 }

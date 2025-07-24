@@ -1,63 +1,48 @@
 package com.study.online_learning_platform.api.lessonProgress.entity;
 
+import com.study.online_learning_platform.api.lesson.entity.LessonEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
-import com.study.online_learning_platform.api.lesson.entity.LessonEntity;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 
 @Getter
+@Entity
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @Table(name = "lesson_progress")
-public class LessonProgress {
+public class LessonProgressEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    Integer lessonProgressId;
-
-    @Column(name = "user_id")
-    Integer userId;
-
+    Integer progress_id;
     @Column(name = "status")
     String status;
-
     @Column(name = "completion_percentage")
-    Double completionPercentage;
-
+    Double completion_percentage;
     @Column(name = "time_spent")
-    Integer timeSpent;
-
+    Integer time_spent;
     @Column(name = "last_position")
-    Integer lastPosition;
-
+    Integer last_position;
     @Column(name = "completed_at")
-    Date completedAt;
-
+    Timestamp completed_at;
     @Column(name = "first_accessed")
-    Date firstAccessed;
-
+    Timestamp first_accessed;
     @Column(name = "last_accessed")
-    Date lastAccessed;
-
+    Timestamp last_accessed;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
-
+    UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
-    private LessonEntity lesson;
-
+    LessonEntity lessonEntity;
 }

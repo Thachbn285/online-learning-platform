@@ -1,7 +1,9 @@
 package com.study.online_learning_platform.api.user.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,18 +19,17 @@ public class UserDTO {
     Integer user_id;
     String username;
     String email;
-    String password;
-    String firstName;
-    String lastName;
+    String password_hash;
+    String first_name;
+    String last_name;
     String phone;
-    Date dateOfBirth;
-    String avatarUrl;
+    Date date_of_birth;
+    String avatar_url;
     String bio;
     String role;
     String status;
-    Integer emailVerified;
-    Date createdAt;
-    Date updatedAt;
-    Date lastLogin;
-
+    Boolean email_verified;
+    Timestamp created_at;
+    Timestamp updated_at;
+    Timestamp last_login;
 }
