@@ -1,13 +1,10 @@
 package com.study.online_learning_platform.api.user;
 
 import com.study.online_learning_platform.api.user.dto.UserDTO;
-import com.study.online_learning_platform.api.user.entity.UserEntity;
-import com.study.online_learning_platform.api.user.service.UserService;
-import org.modelmapper.ModelMapper;
+import com.study.online_learning_platform.api.user.service.IUserService;
+import com.study.online_learning_platform.ultils.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,14 +12,31 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @GetMapping("/all")
-    public List<UserDTO> userDTOS() {
-        List<UserEntity> userEntities = userService.findAll();
-        ModelMapper modelMapper = new ModelMapper();
-        return userEntities.stream()
-                .map(userEntity -> modelMapper.map(userEntity, UserDTO.class))
-                .toList();
+    public List<UserDTO> userDTOs() {
+        return userService.findAll();
+    }
+
+    @GetMapping("")
+    public UserDTO userDTO(@RequestParam Integer id) {
+        return userService.findById(id);
+    }
+
+    @PutMapping("/update")
+    public UserDTO post(@RequestParam Integer id, @RequestBody UserDTO userDTO) {
+        userService.updateById(id, userDTO);
+        return userService.findById(id);
+    }
+
+    @PostMapping("/create")
+    public void create(@RequestBody UserDTO userDTO) {
+        userService.create(userDTO);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteUser(@RequestParam Integer id) {
+        userService.deleteById(id);
     }
 }
