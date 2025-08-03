@@ -1,5 +1,6 @@
 package com.study.online_learning_platform.api.user.service.impl;
 
+import com.study.online_learning_platform.api.user.dto.UserDTO;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 import com.study.online_learning_platform.api.user.repository.IUserRepository;
 import com.study.online_learning_platform.api.user.service.IAuthService;
@@ -7,10 +8,9 @@ import com.study.online_learning_platform.ultils.JwtTokenUtils;
 import com.study.online_learning_platform.ultils.ResponseDTO;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +28,8 @@ public class AuthServiceImpl implements IAuthService {
     @Value("${lengthPasswordEncoder}")
     int length;
     PasswordEncoder passwordEncoder;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public ResponseDTO login(String username, String password) {
@@ -59,8 +61,8 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public ResponseDTO register(String username, String password) {
-        boolean isValid = isExistUser(username, password);
+    public ResponseDTO register(UserDTO userDTO) {
+        boolean isValid = isExistUser(userDTO.getUsername(), userDTO.getPassword_hash());
         ResponseDTO responseDTO = new ResponseDTO();
         List<String> details = new ArrayList<>();
         if (isValid) {
@@ -69,9 +71,8 @@ public class AuthServiceImpl implements IAuthService {
             String detail = "Pleased check your username and password";
             details.add(detail);
         }
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(username);
-        userEntity.setPassword_hash(passwordEncoder.encode(password));
+        UserEntity userEntity = modelMapper.map(userDTO,UserEntity.class);
+        userEntity.setPassword_hash(passwordEncoder.encode(userDTO.getPassword_hash()));
         userRepository.save(userEntity);
         String message = "Register successfully";
         responseDTO.setMessage(message);

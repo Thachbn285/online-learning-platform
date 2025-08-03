@@ -13,11 +13,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @AllArgsConstructor
 public class WebSecurityConfig {
-    //    @Value("${apiCourse}")
-//    private String courseApi;
-//    @Value("${apiUser}")
-//    String userApi;
-//    @Autowired
     private final AuthTokenFilter authTokenFilter;
 
     @Bean

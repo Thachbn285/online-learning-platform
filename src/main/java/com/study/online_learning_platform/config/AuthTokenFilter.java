@@ -23,8 +23,8 @@ import java.util.List;
 
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
-    private final CustomUserDetailsService customUserDetailsService=new CustomUserDetailsService();
-    private final JwtTokenUtils jwtTokenUtils=new JwtTokenUtils();
+    private final CustomUserDetailsService customUserDetailsService = new CustomUserDetailsService();
+    private final JwtTokenUtils jwtTokenUtils = new JwtTokenUtils();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -61,8 +61,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         List<Pair<String, String>> bypassToken = Arrays.asList(
                 Pair.of("/courses/all", "GET"),
-                Pair.of("/courses/**", "GET"),
-                Pair.of("/users/create", "POST"),
                 Pair.of("/login", "POST"),
                 Pair.of("/register", "POST")
         );

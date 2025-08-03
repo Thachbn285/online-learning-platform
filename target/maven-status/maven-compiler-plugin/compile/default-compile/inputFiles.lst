@@ -30,10 +30,13 @@ C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\mai
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\quizzes\entity\QuizzesEntity.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\sections\entity\SectionsEntity.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\submissions\entity\SubmissionsEntity.java
+C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\AuthController.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\dto\UserDTO.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\entity\CustomUserDetails.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\entity\UserEntity.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\repository\IUserRepository.java
+C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\service\IAuthService.java
+C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\service\impl\AuthServiceImpl.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\service\impl\CustomUserDetailsService.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\service\impl\UserServiceImpl.java
 C:\Workspaces\projects\online-learning-platform\online-learning-platform\src\main\java\com\study\online_learning_platform\api\user\service\IUserService.java
