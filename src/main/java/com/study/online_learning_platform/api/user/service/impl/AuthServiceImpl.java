@@ -19,7 +19,6 @@ import java.util.List;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
 public class AuthServiceImpl implements IAuthService {
     @Autowired
     JwtTokenUtils jwtTokenUtils;
