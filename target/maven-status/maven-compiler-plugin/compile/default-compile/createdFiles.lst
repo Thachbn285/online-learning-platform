@@ -3,7 +3,6 @@ com\study\online_learning_platform\exception\ControllerAdvise.class
 com\study\online_learning_platform\api\certificates\entity\CertificateEntity.class
 com\study\online_learning_platform\api\courses\service\impl\CourseServiceImpl.class
 com\study\online_learning_platform\config\ModelMapperConfig.class
-com\study\online_learning_platform\api\categories\entity\CategoryEntity.class
 com\study\online_learning_platform\api\quizAttempts\entity\QuizAttemptsEntity.class
 com\study\online_learning_platform\exception\MyException.class
 com\study\online_learning_platform\api\assignments\entity\AssignmentsEntity.class
@@ -12,7 +11,6 @@ com\study\online_learning_platform\constant\SystemConstant.class
 com\study\online_learning_platform\api\categories\dto\CategoryDTO.class
 com\study\online_learning_platform\api\certificates\dto\CertificateDTO.class
 com\study\online_learning_platform\api\courseReviews\entity\CourseReviewsEntity.class
-com\study\online_learning_platform\api\lessonProgress\entity\LessonProgress.class
 com\study\online_learning_platform\api\assignments\AssignmentsController.class
 com\study\online_learning_platform\OnlineLearningPlatformApplication.class
 com\study\online_learning_platform\api\courses\CourseController.class
@@ -43,4 +41,3 @@ com\study\online_learning_platform\api\enrollments\dto\EnrollmentDTO.class
 com\study\online_learning_platform\api\courses\entity\CourseEntity.class
 com\study\online_learning_platform\api\discussions\entity\DiscussionsEntity.class
 com\study\online_learning_platform\api\submissions\entity\SubmissionsEntity.class
-com\study\online_learning_platform\api\user\dto\UserLoginDTO.class

@@ -1,8 +1,8 @@
 package com.study.online_learning_platform.api.user;
 
 import com.study.online_learning_platform.api.user.dto.UserDTO;
+//import com.study.online_learning_platform.api.user.entity.CustomUserDetails;
 import com.study.online_learning_platform.api.user.service.IUserService;
-import com.study.online_learning_platform.ultils.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +15,12 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/all")
-    public List<UserDTO> userDTOs() {
+    public List<UserDTO> findAllUser() {
         return userService.findAll();
     }
 
     @GetMapping("")
-    public UserDTO userDTO(@RequestParam Integer id) {
+    public UserDTO userDtoDetail(@RequestParam Integer id) {
         return userService.findById(id);
     }
 
@@ -39,4 +39,5 @@ public class UserController {
     public void deleteUser(@RequestParam Integer id) {
         userService.deleteById(id);
     }
+
 }
