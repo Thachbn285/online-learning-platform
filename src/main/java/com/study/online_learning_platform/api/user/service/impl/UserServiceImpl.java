@@ -4,16 +4,16 @@ import com.study.online_learning_platform.api.user.dto.UserDTO;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 import com.study.online_learning_platform.api.user.repository.IUserRepository;
 import com.study.online_learning_platform.api.user.service.IUserService;
-import com.study.online_learning_platform.ultils.ResponseDTO;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -23,6 +23,10 @@ public class UserServiceImpl implements IUserService {
     IUserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Value("${lengthPasswordEncoder}")
+    int length;
+
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDTO> findAll() {
@@ -43,6 +47,8 @@ public class UserServiceImpl implements IUserService {
     public void create(UserDTO userDTO) {
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
         userEntity.setUser_id(null);
+
+        userEntity.setPassword_hash(passwordEncoder.encode(userDTO.getPassword_hash()));
         userRepository.save(userEntity);
     }
 

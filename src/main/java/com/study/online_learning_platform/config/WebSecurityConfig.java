@@ -1,43 +1,38 @@
-//package com.study.online_learning_platform.config;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//@EnableWebSecurity
-//@Configuration
-//public class WebSecurityConfig extends WebSecurityConfiguration {
-//
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//    }
-//
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
-//
-//}
+package com.study.online_learning_platform.config;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@AllArgsConstructor
+public class WebSecurityConfig {
+    private final AuthTokenFilter authTokenFilter;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(
+                        request -> request
+                                .requestMatchers("courses/all","login","register","courses/**").permitAll()
+                                .requestMatchers("course/create").hasRole("instructor".toUpperCase())
+                                .requestMatchers("course/update").hasRole("instructor".toUpperCase())
+                                .requestMatchers("course/delete").hasRole("instructor".toUpperCase())
+                                .requestMatchers("/users/create").hasRole("admin".toUpperCase())
+                                .requestMatchers("/users/update").hasRole("admin".toUpperCase())
+                                .requestMatchers("/users/delete").hasRole("admin".toUpperCase())
+                                .anyRequest().authenticated()
+                )
+                .build();
+    }
+
+}
