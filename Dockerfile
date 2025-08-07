@@ -13,7 +13,7 @@
 # #docker login
 # #docker push bnthach/app:latest
 # Stage 1: Build jar file
-FROM maven:3.9.6-eclipse-temurin-19 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
