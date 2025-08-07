@@ -6,7 +6,6 @@ import java.util.List;
 import com.study.online_learning_platform.api.discussions.entity.DiscussionsEntity;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

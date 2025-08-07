@@ -1,6 +1,5 @@
 package com.study.online_learning_platform.config;
 
-import org.modelmapper.internal.Pair;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

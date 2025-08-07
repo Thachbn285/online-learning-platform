@@ -1,13 +1,12 @@
 package com.study.online_learning_platform.api.courses.dto;
 
-import jakarta.persistence.Column;
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Date;
 
 @Getter
 @Setter

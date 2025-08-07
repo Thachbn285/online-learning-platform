@@ -1,15 +1,15 @@
-FROM openjdk:21-alpine
+FROM openjdk:19-jdk-alpine3.16
 
-WORKDIR /myapp
+WORKDIR /app
 
-COPY target/online-learning-platform-0.0.1-SNAPSHOT.jar myapp.jar
+COPY target/online-learning-platform-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java","-jar","onlinelearningplatform.jar"]
+CMD ["java","-jar","app.jar"]
 
-#docker build -t myapp .
-#docker tag myapp:latest thachbn/myapp
+#docker build -t app .
+#docker tag app:latest bnthach/app
 #docker login
-#docker push thachbn/myapp:latest
+#docker push bnthach/app:latest
 

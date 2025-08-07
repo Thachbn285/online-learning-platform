@@ -1,16 +1,17 @@
 package com.study.online_learning_platform.api.courses.service.impl;
 
-import com.study.online_learning_platform.api.courses.dto.CourseDTO;
-import com.study.online_learning_platform.api.courses.entity.CourseEntity;
-import com.study.online_learning_platform.api.courses.repository.ICourseRepository;
-import com.study.online_learning_platform.api.courses.service.ICourseService;
-import com.study.online_learning_platform.api.user.entity.UserEntity;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.study.online_learning_platform.api.courses.dto.CourseDTO;
+import com.study.online_learning_platform.api.courses.entity.CourseEntity;
+import com.study.online_learning_platform.api.courses.repository.ICourseRepository;
+import com.study.online_learning_platform.api.courses.service.ICourseService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +54,8 @@ public class CourseServiceImpl implements ICourseService {
 
     @Override
     public void deleteById(Integer id) {
-        CourseEntity courseEntity = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+        CourseEntity courseEntity = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
         courseRepository.delete(courseEntity);
     }
 }
