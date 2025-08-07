@@ -2,18 +2,17 @@ package com.study.online_learning_platform.api.user.service;
 
 import java.util.List;
 
-import com.study.online_learning_platform.api.user.dto.UserDTO;
-import com.study.online_learning_platform.ultils.ResponseDTO;
+import com.study.online_learning_platform.api.user.dto.UserRequestDTO;
+import com.study.online_learning_platform.api.user.dto.UserResponseDTO;
 
 public interface IUserService {
-    List<UserDTO> findAll();
+    List<UserResponseDTO> findAll();
 
-    UserDTO findById(Integer id);
+    UserResponseDTO findById(Integer id);
 
-    void create(UserDTO userDTO);
+    void create(UserRequestDTO userResponseDTO);
 
-    void updateById(Integer id, UserDTO userDTO);
+    void updateById(Integer id, UserRequestDTO userResponseDTO);
 
     void deleteById(Integer id);
 }
- 

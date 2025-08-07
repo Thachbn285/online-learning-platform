@@ -1,7 +1,6 @@
 package com.study.online_learning_platform.api.courses.service;
 
 import com.study.online_learning_platform.api.courses.dto.CourseDTO;
-import com.study.online_learning_platform.api.user.dto.UserDTO;
 
 import java.util.List;
 

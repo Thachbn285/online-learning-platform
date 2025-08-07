@@ -1,38 +1,60 @@
 package com.study.online_learning_platform.config;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.modelmapper.internal.Pair;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.AllArgsConstructor;
+
 @Configuration
 @AllArgsConstructor
+@EnableWebSecurity
 public class WebSecurityConfig {
-    private final AuthTokenFilter authTokenFilter;
+    private JwtTokenFilter jwtTokenFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(
-                        request -> request
-                                .requestMatchers("courses/all","login","register","courses/**").permitAll()
-                                .requestMatchers("course/create").hasRole("instructor".toUpperCase())
-                                .requestMatchers("course/update").hasRole("instructor".toUpperCase())
-                                .requestMatchers("course/delete").hasRole("instructor".toUpperCase())
-                                .requestMatchers("/users/create").hasRole("admin".toUpperCase())
-                                .requestMatchers("/users/update").hasRole("admin".toUpperCase())
-                                .requestMatchers("/users/delete").hasRole("admin".toUpperCase())
-                                .anyRequest().authenticated()
-                )
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(request -> request
+
+                        .requestMatchers("/courses/all").permitAll()
+                        .requestMatchers("/courses/**").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/verifyToken").permitAll()
+
+                        .requestMatchers("/courses/create").hasRole("instructor".toUpperCase())
+                        .requestMatchers("/courses/update").hasRole("instructor".toUpperCase())
+                        .requestMatchers("/courses/delete").hasRole("instructor".toUpperCase())
+
+                        .requestMatchers("/users/create").hasRole("admin".toUpperCase())
+                        .requestMatchers("/users/update").hasRole("admin".toUpperCase())
+                        .requestMatchers("/users/delete").hasRole("admin".toUpperCase())
+
+                        .anyRequest().authenticated())
                 .build();
+        // .oauth2ResourceServer(oauth2 ->
+        // oauth2.jwt(
+        // jwt ->
+        // jwt.decoder(jwtDecoder()))).build();
     }
 
+//    @Bean
+//    JwtDecoder jwtDecoder() {
+//        SecretKeySpec secretKeySpec = new SecretKeySpec(authTokenFilter.secretKey.getBytes(), "HS512");
+//        return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
+//    }
+
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

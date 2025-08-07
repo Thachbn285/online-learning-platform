@@ -1,58 +1,58 @@
 package com.study.online_learning_platform.api.user.service.impl;
 
-import com.study.online_learning_platform.api.user.dto.UserDTO;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.nimbusds.jose.JOSEException;
+import com.study.online_learning_platform.api.user.dto.UserResponseDTO;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 import com.study.online_learning_platform.api.user.repository.IUserRepository;
 import com.study.online_learning_platform.api.user.service.IAuthService;
 import com.study.online_learning_platform.ultils.JwtTokenUtils;
 import com.study.online_learning_platform.ultils.ResponseDTO;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthServiceImpl implements IAuthService {
-    @Autowired
     JwtTokenUtils jwtTokenUtils;
     @Autowired
     IUserRepository userRepository;
-    @Value("${lengthPasswordEncoder}")
-    int length;
-    PasswordEncoder passwordEncoder;
     @Autowired
     private ModelMapper modelMapper;
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public ResponseDTO login(String username, String password) {
+    public ResponseDTO login(String username, String password) throws JOSEException {
         ResponseDTO responseDTO = new ResponseDTO();
         List<String> details = new ArrayList<>();
-
         if (username == null || password == null) {
-            responseDTO.setMessage("Username or password null");
-            String detail = "Pleased check your username and password";
-            details.add(detail);
+            responseDTO.setMessage("Username hoặc password không được để trống");
+            details.add("Vui lòng nhập đầy đủ username và password");
             responseDTO.setDetails(details);
             return responseDTO;
         }
         UserEntity userEntity = userRepository.findByUsername(username);
         if (userEntity.getUsername().equals(username) && userEntity.getPassword_hash().equals(password)) {
             String token = jwtTokenUtils.generateJwtToken(username);
-            String message = "Login successfully";
+            String message = "Đăng nhập thành công";
             responseDTO.setMessage(message);
             details.add(token);
             responseDTO.setDetails(details);
             return responseDTO;
-        }else {
-            responseDTO.setMessage("Wrong username or password");
-            String detail = "Wrong username or password, check your username or password";
+        } else {
+            responseDTO.setMessage("Sai username hoặc password");
+            String detail = "Vui lòng kiểm tra lại thông tin đăng nhập";
             details.add(detail);
             responseDTO.setDetails(details);
             return responseDTO;
@@ -60,18 +60,20 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public ResponseDTO register(UserDTO userDTO) {
-        boolean isValid = isExistUser(userDTO.getUsername(), userDTO.getPassword_hash());
+    public ResponseDTO register(UserResponseDTO userResponseDTO, String password) {
+        boolean isValid = isExistUser(userResponseDTO.getUsername());
         ResponseDTO responseDTO = new ResponseDTO();
         List<String> details = new ArrayList<>();
         if (isValid) {
-            String message = "Username already exists";
+            String message = "Username đã tồn tại";
             responseDTO.setMessage(message);
-            String detail = "Pleased check your username and password";
+            String detail = "Vui lòng chọn username khác";
             details.add(detail);
+            responseDTO.setDetails(details);
+            return responseDTO;
         }
-        UserEntity userEntity = modelMapper.map(userDTO,UserEntity.class);
-        userEntity.setPassword_hash(passwordEncoder.encode(userDTO.getPassword_hash()));
+        UserEntity userEntity = modelMapper.map(userResponseDTO, UserEntity.class);
+        userEntity.setPassword_hash(passwordEncoder.encode(password));
         userRepository.save(userEntity);
         String message = "Register successfully";
         responseDTO.setMessage(message);
@@ -81,8 +83,13 @@ public class AuthServiceImpl implements IAuthService {
         return responseDTO;
     }
 
-    public boolean isExistUser(String username, String password) {
-        if (username == null || password == null) {
+    @Override
+    public boolean isValidToken(String token) throws ParseException, JOSEException {
+        return jwtTokenUtils.isValidateToken(token);
+    }
+
+    public boolean isExistUser(String username) {
+        if (username == null) {
             return false;
         }
         UserEntity userEntity = userRepository.findByUsername(username);
