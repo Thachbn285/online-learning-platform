@@ -22,38 +22,23 @@ public class WebSecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(request -> request
+                .authorizeHttpRequests(
+                        request -> request
+                                        .requestMatchers("/courses/all").permitAll()
+                                        .requestMatchers("/courses/**").permitAll()
+                                        .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/register").permitAll()
+                                        .requestMatchers("/verifyToken").permitAll()
 
-                        .requestMatchers("/courses/all").permitAll()
-                        .requestMatchers("/courses/**").permitAll()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/verifyToken").permitAll()
+                                        .requestMatchers("/courses/create").hasRole("instructor".toUpperCase())
+                                        .requestMatchers("/courses/update").hasRole("instructor".toUpperCase())
+                                        .requestMatchers("/courses/delete").hasRole("instructor".toUpperCase())
 
-                        .requestMatchers("/courses/create").hasRole("instructor".toUpperCase())
-                        .requestMatchers("/courses/update").hasRole("instructor".toUpperCase())
-                        .requestMatchers("/courses/delete").hasRole("instructor".toUpperCase())
+                                        .requestMatchers("/users/create").hasRole("admin".toUpperCase())
+                                        .requestMatchers("/users/update").hasRole("admin".toUpperCase())
+                                        .requestMatchers("/users/delete").hasRole("admin".toUpperCase())
 
-                        .requestMatchers("/users/create").hasRole("admin".toUpperCase())
-                        .requestMatchers("/users/update").hasRole("admin".toUpperCase())
-                        .requestMatchers("/users/delete").hasRole("admin".toUpperCase())
-
-                        .anyRequest().authenticated())
+                                        .anyRequest().authenticated())
                 .build();
-        // .oauth2ResourceServer(oauth2 ->
-        // oauth2.jwt(
-        // jwt ->
-        // jwt.decoder(jwtDecoder()))).build();
     }
-
-//    @Bean
-//    JwtDecoder jwtDecoder() {
-//        SecretKeySpec secretKeySpec = new SecretKeySpec(authTokenFilter.secretKey.getBytes(), "HS512");
-//        return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
-//    }
-
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }

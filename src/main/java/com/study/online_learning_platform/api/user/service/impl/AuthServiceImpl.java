@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nimbusds.jose.JOSEException;
-import com.study.online_learning_platform.api.user.dto.UserResponseDTO;
+import com.study.online_learning_platform.api.user.dto.UserRequestDTO;
 import com.study.online_learning_platform.api.user.entity.UserEntity;
 import com.study.online_learning_platform.api.user.repository.IUserRepository;
 import com.study.online_learning_platform.api.user.service.IAuthService;
@@ -59,8 +59,8 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public ResponseDTO register(UserResponseDTO userResponseDTO, String password) {
-        boolean isValid = isExistUser(userResponseDTO.getUsername());
+    public ResponseDTO register(UserRequestDTO userRequestDTO) {
+        boolean isValid = isExistUser(userRequestDTO.getUsername());
         ResponseDTO responseDTO = new ResponseDTO();
         List<String> details = new ArrayList<>();
         if (isValid) {
@@ -71,8 +71,8 @@ public class AuthServiceImpl implements IAuthService {
             responseDTO.setDetails(details);
             return responseDTO;
         }
-        UserEntity userEntity = modelMapper.map(userResponseDTO, UserEntity.class);
-        userEntity.setPassword_hash(passwordEncoder.encode(password));
+        UserEntity userEntity = modelMapper.map(userRequestDTO, UserEntity.class);
+        userEntity.setPassword_hash(passwordEncoder.encode(userRequestDTO.getPassword()));
         userRepository.save(userEntity);
         String message = "Register successfully";
         responseDTO.setMessage(message);

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class JwtTokenUtils {
     private final UserDetails userDetails;
@@ -27,59 +25,17 @@ public class JwtTokenUtils {
     }
 
     public String generateJwtToken(String username) {
-        // Thư viện JWS
-        // JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
-        // JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-        // .subject(username)
-        // .expirationTime(expirationDate)
-        // .issueTime(new Date())
-        // .issuer("https://online-learning-platform.com")
-        // .build();
-        // Payload payload = new Payload(jwtClaimsSet.toJSONObject());
-        // JWSObject jwsObject = new JWSObject(header, payload);
-        // jwsObject.sign(new MACSigner(jwtSecret.getBytes()));
-        // return jwsObject.serialize();
-        // end thư viện JWS
-        // Thư viện JWTs
         Map<String, Object> claims = new HashMap<>();
         String role = userDetails.getAuthorities().iterator().next().getAuthority();
         claims.put("role", role);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.ES512, jwtSecret)
+                .signWith(SignatureAlgorithm.ES512, jwtSecret.getBytes())
                 .compact();
-
-        // end thư viện JWTs
-
     }
-
-    // public String getUsernameFromToken(String token) throws ParseException {
-    // SignedJWT signedJWT = SignedJWT.parse(token);
-    // return signedJWT.getJWTClaimsSet().getSubject();
-    // }
-    //
-    // public boolean isValidExpireTimeFromToken(String token) throws ParseException
-    // {
-    // SignedJWT signedJWT = SignedJWT.parse(token);
-    // Date expire = signedJWT.getJWTClaimsSet().getExpirationTime();
-    // return expire.after(new Date());
-    // }
-    //
-    // public Boolean isValidJwtToken(String token) throws JOSEException,
-    // ParseException {
-    // JWSVerifier verifier = new MACVerifier(jwtSecret.getBytes());
-    // SignedJWT signedJWT = SignedJWT.parse(token);
-    // return signedJWT.verify(verifier);
-    // }
-    // public String getRoleFromToken(String token) {
-    // Claims claims =
-    // Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-    // return claims.get("role", String.class);
-    // }
 
     public String getRoleFromToken(String token) {
         Claims claims = Jwts.parserBuilder()

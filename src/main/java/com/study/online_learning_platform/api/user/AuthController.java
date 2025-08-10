@@ -1,16 +1,17 @@
 package com.study.online_learning_platform.api.user;
 
-import com.nimbusds.jose.JOSEException;
-import com.study.online_learning_platform.api.user.dto.UserResponseDTO;
-import com.study.online_learning_platform.api.user.service.IAuthService;
-import com.study.online_learning_platform.ultils.ResponseDTO;
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
+import com.nimbusds.jose.JOSEException;
+import com.study.online_learning_platform.api.user.dto.UserRequestDTO;
+import com.study.online_learning_platform.api.user.service.IAuthService;
+import com.study.online_learning_platform.ultils.ResponseDTO;
 
 @RestController
 public class AuthController {
@@ -23,8 +24,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseDTO register(@RequestBody UserResponseDTO userResponseDTO, @RequestParam String password) {
-        return authService.register(userResponseDTO, password);
+    public ResponseDTO register(@RequestBody UserRequestDTO userResponseDTO) {
+        return authService.register(userResponseDTO);
     }
 
     @PostMapping("/verifyToken")

@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.modelmapper.internal.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +24,7 @@ import java.util.List;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final CustomUserDetailsService customUserDetailsService = new CustomUserDetailsService();
+    @Autowired
     private JwtTokenUtils jwtTokenUtils ;
     @Value("${jwtSecret}")
     protected String secretKey;
@@ -54,6 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication Failed");
+            e.printStackTrace();
         }
     }
 
